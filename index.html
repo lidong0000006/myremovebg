@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片背景消除</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/logo.svg" alt="removebg">
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-item active">消除背景</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-item">功能</a>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-item">商务办公</a>
+                </div>
+                <a href="#" class="nav-item price-tag">定价 <span class="discount">-40%</span></a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="login">登录</a>
+                <a href="#" class="register">注册</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="hero-image">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500" alt="原始图片" class="original-image">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500" alt="处理后的图片" class="processed-image">
+                        <div class="slider"></div>
+                    </div>
+                </div>
+                <div class="upload-section">
+                    <h1>图片背景消除</h1>
+                    <div class="features">
+                        <span class="feature">100% 全自动且</span>
+                        <span class="feature-free">免费</span>
+                    </div>
+                    <div class="upload-container">
+                        <div class="upload-area" id="dropZone">
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                            <button class="upload-button">
+                                <svg viewBox="0 0 24 24" class="upload-icon">
+                                    <path d="M12 4l-8 8h6v8h4v-8h6z" fill="currentColor"/>
+                                </svg>
+                                上传图片
+                            </button>
+                            <p class="upload-text">或者拖放一个文件</p>
+                            <p class="file-types">支持 JPG, PNG, WEBP 等常见格式</p>
+                        </div>
+                    </div>
+                    <div id="preview" class="preview-container"></div>
+                    <div class="background-controls" style="display: none;">
+                        <label for="bgColor">选择背景颜色：</label>
+                        <input type="color" id="bgColor" value="#ffffff">
+                        <input type="range" id="bgOpacity" min="0" max="100" value="100">
+                        <span id="opacityValue">100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 添加广告栏 -->
+        <div class="ad-sidebar">
+            <div class="ad-container">
+                <h3>推荐服务</h3>
+                <div class="ad-item">
+                    <img src="https://via.placeholder.com/300x200" alt="广告1">
+                    <p>专业图片编辑服务</p>
+                </div>
+                <div class="ad-item">
+                    <img src="https://via.placeholder.com/300x200" alt="广告2">
+                    <p>批量处理优惠</p>
+                </div>
+            </div>
+        </div>
+        <div class="features-section">
+            <h2>为什么选择我们？</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>快速处理</h3>
+                    <p>5秒内完成背景去除</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>精确识别</h3>
+                    <p>AI智能识别前景物体</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>安全可靠</h3>
+                    <p>图片加密传输与存储</p>
+                </div>
+            </div>
+        </div>
+        <div class="example-section">
+            <h3>没有图片？试试这些样例</h3>
+            <div class="example-images">
+                <div class="example-card">
+                    <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=200" alt="示例1" class="example-img">
+                    <div class="example-overlay">点击使用</div>
+                </div>
+                <div class="example-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200" alt="示例2" class="example-img">
+                    <div class="example-overlay">点击使用</div>
+                </div>
+                <div class="example-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200" alt="示例3" class="example-img">
+                    <div class="example-overlay">点击使用</div>
+                </div>
+                <div class="example-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200" alt="示例4" class="example-img">
+                    <div class="example-overlay">点击使用</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>关于我们</h4>
+                <p>提供专业的图片背景去除服务</p>
+            </div>
+            <div class="footer-section">
+                <h4>联系方式</h4>
+                <p>support@example.com</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
