@@ -1,6 +1,5 @@
 import React from 'react';
 import Advertisement from './Advertisement';
-import logo from '../images/logo.svg';
 
 const Layout = ({ children }) => {
   return (
@@ -10,7 +9,7 @@ const Layout = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex-shrink-0">
-              <img src={logo} alt="Logo" className="h-8 w-auto" />
+              <span className="text-xl font-bold text-blue-500">RemoveBG</span>
             </div>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-700 hover:text-gray-900">功能</a>
