@@ -1,8 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const MainContent = () => {
   const [selectedColor, setSelectedColor] = useState('#FFFFFF');
-  
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleFileSelect = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      // 创建预览URL
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      setSelectedFile(file);
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div className="space-y-8">
       {/* 标题部分 */}
@@ -13,14 +44,38 @@ const MainContent = () => {
 
       {/* 图片上传区域 */}
       <div className="grid grid-cols-2 gap-6">
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+        <div 
+          className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
           <h3 className="font-semibold mb-2">原始图片</h3>
           <div className="mt-4">
-            <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileSelect}
+              accept="image/*"
+              className="hidden"
+            />
+            <button 
+              onClick={handleUploadClick}
+              className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+            >
               上传图片
             </button>
             <p className="mt-2 text-sm text-gray-500">或者拖放一个文件</p>
             <p className="mt-1 text-sm text-gray-500">支持 JPG, PNG, WEBP 等常见格式</p>
+            {previewUrl && (
+              <div className="mt-4">
+                <img 
+                  src={previewUrl} 
+                  alt="Preview" 
+                  className="max-w-full h-auto mx-auto rounded-lg"
+                  style={{ maxHeight: '200px' }}
+                />
+              </div>
+            )}
           </div>
         </div>
         
