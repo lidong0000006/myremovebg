@@ -1,11 +1,11 @@
 import React from 'react';
 import Layout from './components/Layout';
-import YourMainComponent from './components/YourMainComponent';  // 您的主要内容组件
+import MainContent from './components/MainContent';  // 我们需要创建这个组件
 
 function App() {
   return (
     <Layout>
-      <YourMainComponent />
+      <MainContent />
     </Layout>
   );
 }
