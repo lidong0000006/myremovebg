@@ -1,15 +1,28 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "*.html",
-            "use": "@vercel/static"
-        }
-    ],
+    "framework": "create-react-app",
+    "buildCommand": "npm run build",
+    "devCommand": "npm start",
+    "outputDirectory": "build",
     "routes": [
         {
-            "src": "/(.*)",
-            "dest": "/$1"
+            "src": "^/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": "^/favicon.ico",
+            "dest": "/favicon.ico"
+        },
+        {
+            "src": "^/manifest.json",
+            "dest": "/manifest.json"
+        },
+        {
+            "src": "^/logo(.*)",
+            "dest": "/logo$1"
+        },
+        {
+            "src": "^/(.*)",
+            "dest": "/index.html"
         }
     ]
 }
