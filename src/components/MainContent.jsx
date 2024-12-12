@@ -4,15 +4,17 @@ const MainContent = () => {
   const [selectedColor, setSelectedColor] = useState('#FFFFFF');
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [processedImageUrl, setProcessedImageUrl] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
-      // 创建预览URL
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
+      setProcessedImageUrl(null);
     }
   };
 
@@ -23,6 +25,7 @@ const MainContent = () => {
       setSelectedFile(file);
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
+      setProcessedImageUrl(null);
     }
   };
 
@@ -32,6 +35,49 @@ const MainContent = () => {
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleRemoveBackground = async () => {
+    if (!selectedFile) {
+      alert('请先上传图片');
+      return;
+    }
+
+    setIsProcessing(true);
+    try {
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+      formData.append('bgcolor', selectedColor.replace('#', ''));
+
+      const response = await fetch('YOUR_API_ENDPOINT', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('处理失败');
+      }
+
+      const blob = await response.blob();
+      const processedUrl = URL.createObjectURL(blob);
+      setProcessedImageUrl(processedUrl);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('图片处理失败，请重试');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleSaveImage = () => {
+    if (!processedImageUrl) return;
+
+    const link = document.createElement('a');
+    link.href = processedImageUrl;
+    link.download = 'processed-image.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -89,6 +135,35 @@ const MainContent = () => {
               onChange={(e) => setSelectedColor(e.target.value)}
               className="w-20 h-10"
             />
+            <button
+              onClick={handleRemoveBackground}
+              disabled={!selectedFile || isProcessing}
+              className={`px-6 py-2 rounded-lg ${
+                !selectedFile || isProcessing
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-blue-500 hover:bg-blue-600'
+              } text-white transition-colors`}
+            >
+              {isProcessing ? '处理中...' : '去除背景'}
+            </button>
+            {processedImageUrl && (
+              <>
+                <div className="mt-4">
+                  <img
+                    src={processedImageUrl}
+                    alt="Processed"
+                    className="max-w-full h-auto mx-auto rounded-lg"
+                    style={{ maxHeight: '200px' }}
+                  />
+                </div>
+                <button
+                  onClick={handleSaveImage}
+                  className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                >
+                  保存图片
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
